@@ -90,16 +90,9 @@ Then go to `http://127.0.0.1:5000/` in your browser.
 
 ---
 
-## 📸 Screenshots
 
-> *(Add your screenshots folder or embed image links if available)*
 
----
 
-## 📽️ Demo Video
-
-> [📹 Watch Demo Video](https://drive.google.com/...)  
-> _(Replace with your actual demo video link)_
 
 ---
 
@@ -122,7 +115,7 @@ This version uses a 10,000-row subset for efficient local training and deploymen
 ## ✍️ Author
 
 - **Your Name**  
-- Final Year B.Tech Project – [Your College Name], 2025
+- Ketan Sonawane
 
 ---
 
