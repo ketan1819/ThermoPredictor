@@ -1,12 +1,47 @@
-import pandas as pd
+from flask import Flask, render_template, request
+import numpy as np
+import joblib
+import os
 
-# === Load the full dataset ===
-df = pd.read_csv("data.csv")  # Replace with your actual file name
+app = Flask(__name__)
 
-# === Randomly sample 100,000 rows ===
-sampled_df = df.sample(n=20000, random_state=42)
+# === Load model and scaler ===
+MODEL_PATH = os.path.join('model', 'model.save')
+SCALER_PATH = os.path.join('model', 'scaler.save')
 
-# === Save the sampled dataset ===
-sampled_df.to_csv("data1.csv", index=False)
+model = joblib.load(MODEL_PATH)
+scaler = joblib.load(SCALER_PATH)
 
-print("✅ Saved 'data_100k.csv' with 100,000 random rows.")
+# === Home page ===
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# === Prediction route ===
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Input order must match model training features
+        input_order = [
+            'u_q', 'coolant', 'stator_winding', 'u_d', 'stator_tooth',
+            'motor_speed', 'i_d', 'i_q', 'stator_yoke', 'ambient', 'torque'
+        ]
+
+        # Collect inputs from form
+        input_features = [float(request.form[feature]) for feature in input_order]
+
+        # Convert to numpy array and scale
+        input_array = np.array(input_features).reshape(1, -1)
+        scaled_input = scaler.transform(input_array)
+
+        # Make prediction
+        prediction = model.predict(scaled_input)[0]
+
+        return render_template('result.html', prediction=round(prediction, 2))
+
+    except Exception as e:
+        return f"❌ Error occurred: {str(e)}"
+
+# === Local test only ===
+if __name__ == '__main__':
+    app.run(debug=True)
