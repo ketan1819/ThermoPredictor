@@ -70,8 +70,8 @@ ElectricMotorTempPrediction_Lite/
 ### ✅ Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ElectricMotorTempPrediction_Lite.git
-cd ElectricMotorTempPrediction_Lite
+git clone https://github.com/ketan1819/ThermoPredictor.git
+cd ThermoPredictor
 ```
 
 ### ✅ Step 2: Install Dependencies
@@ -108,7 +108,7 @@ This version uses a 10,000-row subset for efficient local training and deploymen
 - Algorithm: Random Forest Regressor
 - Training Set Size: 10,000 rows
 - Output: PM Temperature (`pm`)
-- Accuracy: _(Add R² score if known)_
+- Accuracy: _(0.992)_
 
 ---
 
